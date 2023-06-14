@@ -37,3 +37,22 @@ module.exports.updateToDo = (req, res) => {
         .then(() => res.send("Updated Successfully..."))
         .catch((err) => console.log(err));
 }
+
+
+
+module.exports.searchToDo=async (req, res) => {
+    const query = req.query.q; // Get the search query from the request query parameters
+  console.log(query);
+    try {
+      // Use the $text operator to perform the full-text search on the 'title' and 'content' fields
+      const result = await ToDoModel.find({ "$or":[
+        {text:{$regex:query}}
+      ]});
+  console.log(result);
+      res.send(result);
+    } catch (err) {
+      console.error('Error searching documents:', err);
+      res.status(500).send({ error: 'An error occurred while searching documents' });
+    }
+  }
+  

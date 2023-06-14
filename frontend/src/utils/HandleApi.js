@@ -49,5 +49,14 @@ const deleteToDo = (_id, setToDo) => {
 
 }
 
+const searchToDo = (search,setToDo) => {
+    console.log(search)
+    axios
+        .get(`${baseUrl}/search?q=${search}`)
+        .then(({ data }) => {
+            console.log('data ---> ', data);
+            setToDo(data)
+        })
+}
 
-export { getAllToDo, addToDo, updateToDo, deleteToDo }
+export { getAllToDo, addToDo, updateToDo, deleteToDo, searchToDo}

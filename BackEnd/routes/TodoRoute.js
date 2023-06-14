@@ -1,6 +1,6 @@
 const { Router } = require("express");
 
-const { getToDo, saveToDo, deleteToDo, updateToDo } = require("../controllers/TodoController");
+const { getToDo, saveToDo, deleteToDo, updateToDo, searchToDo } = require("../controllers/TodoController");
 
 const router = Router();
 
@@ -11,5 +11,7 @@ router.post("/save", saveToDo);
 router.post("/update", updateToDo);
 
 router.post("/delete", deleteToDo);
+
+router.get("/search",searchToDo)
 
 module.exports = router;
