@@ -6,10 +6,11 @@ module.exports.getToDo = async (req, res) => {
 }
 
 module.exports.saveToDo = (req, res) => {
-    const { text } = req.body;
+    const { title,description } = req.body;
+    console.log(title)
 
     ToDoModel
-        .create({ text })
+        .create({ title,description})
         .then((data) =>{ 
             console.log("Added Successfully...")
             console.log(data)
@@ -46,7 +47,7 @@ module.exports.searchToDo=async (req, res) => {
     try {
       // Use the $text operator to perform the full-text search on the 'title' and 'content' fields
       const result = await ToDoModel.find({ "$or":[
-        {text:{$regex:query}}
+        {title:{$regex:query}},{description:{$regex:query}}
       ]});
   console.log(result);
       res.send(result);

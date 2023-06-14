@@ -6,7 +6,8 @@ import { addToDo, getAllToDo, updateToDo, deleteToDo, searchToDo } from "./utils
 function App() {
 
   const [toDo, setToDo] = useState([])
-  const [text, setText] = useState("")
+  const [text, setText] = useState({title:"",description:""})
+  const [des, setDes] = useState("")
   const [search, setSearch] = useState("")
   const [isUpdating, setIsUpdating] = useState(false)
   const [toDoId, setToDoId] = useState("")
@@ -32,10 +33,17 @@ function App() {
           <input
             type="text"
             placeholder="Add ToDos..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+            value={text.title}
+            onChange={(e) => setText({...text,title:e.target.value})}
           />
-    
+
+          <input
+            type="text"
+            placeholder="Description..."
+            value={text.description}
+            onChange={(e) => setText({...text,description:e.target.value})}
+          />
+
           <div
             className="add"
             onClick={isUpdating ?
@@ -62,7 +70,8 @@ function App() {
 
           {toDo.map((item) => <ToDo 
           key={item._id} 
-          text={item.text}
+          title={item.title}
+          description={item.description}
           updateMode = {() => updateMode(item._id, item.text)}
           deleteToDo = {() => deleteToDo(item._id, setToDo)} />)}
 
